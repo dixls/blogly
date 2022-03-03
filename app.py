@@ -28,3 +28,9 @@ def user_list():
 
     users = User.query.all()
     return render_template("user-list.html", users=users)
+
+@app.route("/users/new")
+def user_form():
+    """displays form for creating a new user"""
+
+    return render_template("user-form.html")
