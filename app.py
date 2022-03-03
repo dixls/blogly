@@ -21,10 +21,10 @@ debug = DebugToolbarExtension(app)
 def root():
     """home page redirects to /users"""
 
-    return redirect("/users")
+    return redirect("/users/")
 
 
-@app.route("/users")
+@app.route("/users/")
 def user_list():
     """List of all current users."""
 
@@ -32,7 +32,7 @@ def user_list():
     return render_template("user-list.html", users=users)
 
 
-@app.route("/users/new")
+@app.route("/users/new/")
 def user_form():
     """displays form for creating a new user"""
 
@@ -52,10 +52,10 @@ def add_user():
     db.seddion.add(new_user)
     db.seddion.commit()
 
-    return redirect(f"/users/{new_user.id}")
+    return redirect(f"/users/{new_user.id}/")
 
 
-@app.route("/users/<user_id>")
+@app.route("/users/<user_id>/")
 def user_info(user_id):
     """shows info for a specific user"""
 
