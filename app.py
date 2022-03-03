@@ -64,7 +64,7 @@ def user_info(user_id):
 
 
 @app.route("/users/<user_id>/edit/")
-def user_info(user_id):
+def user_edit(user_id):
     """shows info for a specific user"""
 
     user = User.query.get_or_404(user_id)
@@ -72,7 +72,7 @@ def user_info(user_id):
 
 
 @app.route("/users/<user_id>/edit/", methods=["POST"])
-def user_info(user_id):
+def user_edit_submit(user_id):
     """shows info for a specific user"""
 
     updated_user = User.query.get(user_id)
