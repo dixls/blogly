@@ -12,8 +12,10 @@ connect_db(app)
 db.create_all()
 
 from flask_debugtoolbar import DebugToolbarExtension
-app.config['SECRET_KEY'] = "my_secret_key"
+
+app.config["SECRET_KEY"] = "my_secret_key"
 debug = DebugToolbarExtension(app)
+
 
 @app.route("/")
 def root():
@@ -29,8 +31,25 @@ def user_list():
     users = User.query.all()
     return render_template("user-list.html", users=users)
 
+
 @app.route("/users/new")
 def user_form():
     """displays form for creating a new user"""
 
     return render_template("user-form.html")
+
+
+@app.route("/users/new", methods=["POST"])
+def add_user():
+    """adds new user to users table"""
+
+    first_name = request.form["first_name"]
+    last_name = request.form["last_name"]
+    img_url = request.form["img_url"]
+
+    new_user = User(first_name=first_name, last_name=last_name, img_url=img_url)
+
+    db.seddion.add(new_user)
+    db.seddion.commit()
+
+    return redirect(f"/users/{new_user.id}")
