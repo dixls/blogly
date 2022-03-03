@@ -14,6 +14,7 @@ db.create_all()
 from flask_debugtoolbar import DebugToolbarExtension
 
 app.config["SECRET_KEY"] = "my_secret_key"
+app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False
 debug = DebugToolbarExtension(app)
 
 
@@ -39,7 +40,7 @@ def user_form():
     return render_template("user-form.html")
 
 
-@app.route("/users/new", methods=["POST"])
+@app.route("/users/new/", methods=["POST"])
 def add_user():
     """adds new user to users table"""
 
@@ -84,3 +85,13 @@ def user_edit_submit(user_id):
     db.session.commit()
 
     return redirect(f"/users/{user_id}/")
+
+
+@app.route("/users/<user_id>/delete/", methods=["POST"])
+def user_delete(user_id):
+    """delete user from database"""
+
+    User.query.filter(User.id == user_id).delete()
+    db.session.commit()
+
+    return redirect("/users/")
