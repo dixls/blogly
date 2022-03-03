@@ -49,8 +49,8 @@ def add_user():
 
     new_user = User(first_name=first_name, last_name=last_name, img_url=img_url)
 
-    db.seddion.add(new_user)
-    db.seddion.commit()
+    db.session.add(new_user)
+    db.session.commit()
 
     return redirect(f"/users/{new_user.id}/")
 
@@ -61,3 +61,26 @@ def user_info(user_id):
 
     user = User.query.get_or_404(user_id)
     return render_template("user-info.html", user=user)
+
+
+@app.route("/users/<user_id>/edit/")
+def user_info(user_id):
+    """shows info for a specific user"""
+
+    user = User.query.get_or_404(user_id)
+    return render_template("user-edit.html", user=user)
+
+
+@app.route("/users/<user_id>/edit/", methods=["POST"])
+def user_info(user_id):
+    """shows info for a specific user"""
+
+    updated_user = User.query.get(user_id)
+
+    updated_user.first_name = request.form["first_name"]
+    updated_user.last_name = request.form["last_name"]
+    updated_user.img_url = request.form["img_url"]
+
+    db.session.commit()
+
+    return redirect(f{'/users/{user_id}/'})
