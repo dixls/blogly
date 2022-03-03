@@ -10,3 +10,10 @@ app.config["SQLALCHEMY_ECHO"] = True
 
 connect_db(app)
 db.create_all()
+
+@app.route("/")
+def user_list():
+    """Home page is a list of all current users."""
+
+    users = User.query.all()
+    return render_template("user-list.html", users=users)
