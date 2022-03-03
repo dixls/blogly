@@ -53,3 +53,11 @@ def add_user():
     db.seddion.commit()
 
     return redirect(f"/users/{new_user.id}")
+
+
+@app.route("/users/<user_id>")
+def user_info(user_id):
+    """shows info for a specific user"""
+
+    user = User.query.get_or_404(user_id)
+    return render_template("user-info.html", user=user)
