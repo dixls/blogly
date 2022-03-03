@@ -83,4 +83,4 @@ def user_info(user_id):
 
     db.session.commit()
 
-    return redirect(f{'/users/{user_id}/'})
+    return redirect(f"/users/{user_id}/")
