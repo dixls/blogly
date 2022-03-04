@@ -52,3 +52,20 @@ class RouteTest(TestCase):
 
             self.assertTrue(HTTPStatus.OK)
             self.assertIn("Jack Sparrow", html)
+
+    def test_users_new(self):
+        with app.test_client() as client:
+            resp = client.get("/users/new/")
+            html = resp.get_data(as_text=True)
+
+            self.assertTrue(HTTPStatus.OK)
+            self.assertIn("Create new User", html)
+
+    def test_users_new_submit(self):
+        with app.test_client() as client:
+            yara = {"first_name": "Yara", "last_name": "Beadenkopf", "img_url": ""}
+            resp = client.post("/users/new/", data=yara, follow_redirects=True)
+            html = resp.get_data(as_text=True)
+
+            self.assertTrue(HTTPStatus.OK)
+            self.assertIn("Yara Beadenkopf", html)
