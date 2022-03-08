@@ -37,7 +37,7 @@ class Post(db.Model):
 
     author = db.relationship("User", backref="posts")
 
-    tags = db.relationship("Tag", secondary="post_tags", backref="posts")
+    tags = db.relationship("Tag", secondary="posts_tags", backref="posts")
 
     def __repr__(self):
         return f"<post Title = {self.title}, AUTHOR = {self.author.first_name} {self.author.last_name}>"
@@ -50,6 +50,9 @@ class Tag(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.Text, nullable=False, unique=True)
+
+    def __repr__(self):
+        return f"<tag {self.name}>"
 
 
 class PostTag(db.Model):
