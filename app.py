@@ -95,3 +95,38 @@ def user_delete(user_id):
     db.session.commit()
 
     return redirect("/users/")
+
+
+@app.route("/tags/")
+def list_tags():
+    """list tags from database"""
+
+
+@app.route("/tags/new/")
+def new_tag_form():
+    """display form for creating a new tag"""
+
+
+@app.route("/tags/new/", methods=["POST"])
+def submit_tag():
+    """add new tag to db"""
+
+
+@app.route("/tags/<tag_id>/")
+def tag_info():
+    """display informations about a tag"""
+
+
+@app.route("/tags/<tag_id>/edit/")
+def edit_tag():
+    """displayu form for editting an existing tag"""
+
+
+@app.route("/tags/<tag_id>/edit/", methods=["POST"])
+def submit_edit_tag():
+    """submit changes to a tag to the db"""
+
+
+@app.route("/tags/<tag_id>/delete/", methods=["POST"])
+def delete_tag():
+    """delete a tag from the db"""
